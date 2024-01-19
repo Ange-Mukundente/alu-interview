@@ -1,21 +1,20 @@
 #!/usr/bin/python3
-""" Minimum Operations
-    """
+"""Minimum Operations"""
+import math
 
 
-def minOperations(n: int) -> int:
-    """ Minimum Operations needed to get n H characters """
-    next = 'H'
-    body = 'H'
-    op = 0
-    while (len(body) < n):
-        if n % len(body) == 0:
-            op += 2
-            next = body
-            body += body
-        else:
-            op += 1
-            body += next
-    if len(body) != n:
+def minOperations(n):
+    """Minimum Operations"""
+    if n <= 1:
         return 0
-    return op
+
+    operations = 0
+    for i in range(2, int(math.sqrt(abs(n))) + 1):
+        while n % i == 0:
+            operations += i
+            n //= i
+
+    if n > 1:
+        operations += n
+
+    return operations
